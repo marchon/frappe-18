@@ -155,6 +155,4 @@ frappe.listview_settings['Purchase Order'] = {
 		});
 	}
 };			
-```
-
 			
