@@ -34,3 +34,29 @@ bench execute healthcenter.healthcenter.doctype.patient.patient.patient_query
 
 
 ```
+
+#### logging
+[https://discuss.erpnext.com/t/custom-script-logging-easy-way/11984/4](https://discuss.erpnext.com/t/custom-script-logging-easy-way/11984/4)
+
+
+```
+log = frappe.get_logger("my_module")
+log.debug("Some debug")
+log.info("Some info")
+
+//  frappe-web.log file in the frappe-bench/logs folder
+ 
+ ```
+ 
+ ```
+ frappe.logger().debug('Custom Message')
+ ```
+ 
+#### debug sql
+ 
+ You can always trace error in a particular query by passing debug=1 to frappe.db.sql method.
+ 
+ 
+#### debugging with pycharm
+[https://discuss.erpnext.com/t/how-to-debug-erpnext/514/19] (https://discuss.erpnext.com/t/how-to-debug-erpnext/514/19)
+

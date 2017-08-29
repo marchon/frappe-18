@@ -158,4 +158,97 @@ frappe.listview_settings['Purchase Order'] = {
 };			
 ```
 
-			
+#### db query
+
+```
+rows = frappe.get_all("Table_name", fields = ["x", "y"])
+// rows = [{"x": x_value1, "y": y_value1}, ....., {"x": x_valuen, "y": y_valuen}]
+
+for row in frappe.get_all("Table_name", fields = ["x", "y"]):
+   print row["x"]
+   print row["y"]
+
+```			
+
+#### logging in console 
+
+Try settings "logging": 1 in site_config.json. It will show all queries that are being executed in the javascript console.
+
+#### redirect to report
+
+```
+frappe.set_route('query-report', 'my report name', {'filter': 'value'});
+```
+
+#### redirect to form
+
+```
+frappe.route_options = {"key": "value"}
+frappe.set_route("List", "User")
+
+```
+
+#### dynamic filter in script report
+[https://discuss.erpnext.com/t/script-report-dynamic-filter/9526](https://discuss.erpnext.com/t/script-report-dynamic-filter/9526)
+
+```
+		{
+			"fieldname":"account",
+			"label": __("Account"),
+			"fieldtype": "Link",
+			"options": "Account",
+			"get_query": function() {
+				var company = frappe.query_report.filters_by_name.company.get_value();
+				return {
+					"doctype": "Account",
+					"filters": {
+						"company": company,
+					}
+				}
+			}
+		},
+
+```
+
+#### custom button
+
+```
+frappe.ui.form.on('Gnanvidhi', {
+    refresh: function(frm,cdt,cdn) {
+      frm.add_custom_button(__('Show Mahatma List'), function(){
+	frappe.set_route('query-report', 'Mahatma List',{gnanvidhi: locals[cdt][cdn]["name"]});
+    });
+  }
+});
+```
+
+[https://discuss.erpnext.com/t/how-to-change-set-df-property-in-child-table-field/3545/4](https://discuss.erpnext.com/t/how-to-change-set-df-property-in-child-table-field/3545/4)
+
+```
+cur_frm.get_field("fields").grid.toggle_reqd("fieldname", true);
+```
+
+
+```
+frappe.ui.form.on("Payment Entry", "validate", function(frm){
+    var dt, references = (frm.doc.references || []).map(function(row){
+         if (dt === undefined) dt = row.reference;
+         return row.reference_name;
+    });
+    frappe.call({
+        'async': false,
+        'method': 'frappe.client.get_list',
+        'args': {
+            'doctype': dt,
+           'fields': ['name', 'bill_no'],
+           'filters': {'name': ['in', references]}
+        },
+       callback: function(res){
+           (res.message || []).forEach(function(row){
+               var ref = frappe.utils.filter_dict(frm.doc.references, {'reference_name': row.name})[0];
+               frappe.model.set_value(ref.doctype, ref.name, "bill_no", row.bill_no);
+           })
+       }
+    })
+});
+```

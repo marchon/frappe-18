@@ -1,9 +1,44 @@
+
+
+
 ## Install & Setup
 
+
+[https://github.com/frappe/bench](https://github.com/frappe/bench)
+
+
+[manual install on ubuntu-16](https://discuss.erpnext.com/t/guide-manual-install-erpnext-on-ubuntu-16-xx-debian-v8-9/22596)
+
+
+#### drop site and re-install erpnext 
+
+```
+bench drop-site site1 --root-password dada && bench new-site site1 --admin-password dada --mariadb-root-password dada --install-app erpnext && bench start
+
+```
+
+#### db restore & migrate
+
+```
+bench --site [sitename] --force restore /path/to/SQLFILE
+bench --site [sitename] migrate
+```
+
+#### pre-requisite packages
 
 ```
 npm install babel-core less chokidar babel-preset-es2015 babel-preset-es2016 babel-preset-es2017 babel-preset-babili
 ```
+
+
+#### get app and create site and install on site
+
+```
+$ bench get-app erpnext https://github.com/frappe/erpnext.git
+$ bench new-site testsite
+$ bench --site testsite install-app schools
+```
+
 
 #### Reset permissions on migrate
 
@@ -61,15 +96,6 @@ access ubuntu folder from host
 
 ```
 
-#### get app and create site and install on site
-
-```
-$ bench get-app erpnext https://github.com/frappe/erpnext.git
-$ bench new-site testsite
-$ bench --site testsite install-app schools
-```
-
-
 #### depends on field
 
 ```
@@ -116,3 +142,8 @@ iface enp0s8 inet static
 ```
 
 
+#### [install error](https://discuss.erpnext.com/t/unable-to-complete-the-setup-on-vm-virtual-box/27408/2)
+
+```
+bench config http_timeout 600 
+```
