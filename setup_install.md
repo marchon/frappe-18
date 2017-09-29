@@ -9,6 +9,12 @@
 
 [manual install on ubuntu-16](https://discuss.erpnext.com/t/guide-manual-install-erpnext-on-ubuntu-16-xx-debian-v8-9/22596)
 
+[ubuntu user](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04)
+
+
+[mysql reset root password](https://support.rackspace.com/how-to/mysql-resetting-a-lost-mysql-root-password/)
+
+[easy install](https://www.virtual-server.org/blog/how-to-install-erpnext-on-ubuntu-16-04/)
 
 #### drop site and re-install erpnext 
 
@@ -60,6 +66,12 @@ frappe.delete_doc("Module Def", "Poll")
 access ubuntu folder from host
 /etc/samba/smb.conf
 
+```
+
+[setup wizard timeout](https://discuss.erpnext.com/t/setup-wizard-request-timeout-problem-solution/24682)
+
+```
+bench config http_timeout 6000
 ```
 
 #### setup site from bench console if wizard fails

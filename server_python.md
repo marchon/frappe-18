@@ -60,3 +60,27 @@ log.info("Some info")
 #### debugging with pycharm
 [https://discuss.erpnext.com/t/how-to-debug-erpnext/514/19] (https://discuss.erpnext.com/t/how-to-debug-erpnext/514/19)
 
+
+
+#### Custom list view.. change hooks.py
+
+```
+doctype_list_js = {
+"Quotation": "path of custom_quotation_list.js",
+}
+```
+
+#### Workflow status change
+
+```
+frappe.ui.form.on(DocType, "workflow_state", function(frm, cdt, cdn){
+if (frm.doc.worflow_state ==== "Draft"){
+// do something
+}else{
+// do something
+}
+});
+```
+
+
+[upload-attachment-using-rest-api](https://discuss.erpnext.com/t/upload-attachment-using-rest-api/4770)

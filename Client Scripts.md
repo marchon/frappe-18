@@ -252,3 +252,61 @@ frappe.ui.form.on("Payment Entry", "validate", function(frm){
     })
 });
 ```
+#### Depends on
+
+```
+eval:doc.customer && doc.customer.length
+..
+cur_frm.set_df_property("fieldname", "reqd", true);
+```
+
+
+[Filter the selections of a field in a child document](Filter the selections of a field in a child document)
+
+```
+cur_frm.fields_dict['items'].grid.get_field('item_code').get_query = function(doc, cdt, cdn) {
+	return {
+		filters:{'default_supplier': doc.supplier}
+	}
+}
+```
+
+[Sales Invoice Id Based On Sales Order Id](https://erpnext.org/docs/user/manual/en/customize-erpnext/custom-scripts/custom-script-examples/sales-invoice-id-based-on-sales-order-id)
+
+```
+frappe.ui.form.on("Sales Invoice", "refresh", function(frm){
+    var sales_order = frm.doc.items[0].sales_order.replace("M", "M-");
+    if (!frm.doc.__islocal && sales_order && frm.doc.name!==sales_order){
+        frappe.call({
+        method: 'frappe.model.rename_doc.rename_doc',
+        args: {
+            doctype: frm.doctype,
+            old: frm.docname,
+            "new": sales_order,
+            "merge": false
+       },
+    });
+    }
+});
+```
+
+
+#### [link formatter](https://frappe.io/docs/user/en/guides/desk/formatter_for_link_fields)
+
+```
+frappe.form.link_formatters['Employee'] = function(value, doc) {
+    if(doc.employee_name && doc.employee_name !== value) {
+        return value + ': ' + doc.employee_name;
+    } else {
+        return value;
+    }
+}
+
+```
+
+#### Custom app js
+
+1. add /public/js/file_name.js 
+2. add /public/build.json file
+3. change hooks.py -  app_include_js = "/assets/app_name/js/file_name.min.js"
+
